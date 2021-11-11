@@ -6,7 +6,7 @@
         {{ form.hidden_tag() }}
         <p>
             {{ form.email.label }}<br>
-            {{ form.email(size=32) }}<br>  <!--Char size-->
+            {{ form.email(size=64) }}<br>  <!--Char size-->
             {% for error in form.email.errors %}
             <span style='color:red;'>[{{error}}]</span> <!--Remove these inline styles later...-->
             {% endfor %}
@@ -21,4 +21,5 @@
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit() }}</p>
     </form>
+    <p>New User? <a href="{{ url_for('register') }}">Click to Register</a></p>
 {% endblock %}
