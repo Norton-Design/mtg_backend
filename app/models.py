@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from sqlalchemy.orm import relationship
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -6,6 +8,7 @@ from flask_login import UserMixin
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True)
+    username = db.Column(db.String(20), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -49,6 +52,7 @@ class Card(db.Model):
     artist = db.Column(db.String(20))
     edhrec_rank = db.Column(db.Integer)
     usd_price = db.Column(db.Float())
+    comments = relationship('Comment', back_populates='card')
     
     def __init__(self, name, usd_price):
         self.name = name
@@ -57,6 +61,15 @@ class Card(db.Model):
 
     def __repr__(self):
         return f'<Card {self.name}>'
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    card_id = db.Column(db.Integer, db.ForeignKey('card.id'))
+    card = relationship('Card', back_populates='comments')
+    author = relationship('User')
 
 
 @login.user_loader
