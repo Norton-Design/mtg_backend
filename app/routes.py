@@ -68,3 +68,20 @@ def user(username):
     ]
     # user = {'username': "sample shit", 'email': 'other shit'}
     return render_template('user.html', user=user, posts=sample_posts)
+
+
+@app.route('/card/<string:name>')
+def get_card(name):
+    pass
+
+@app.route('/card', methods=["POST"])
+def create_card():
+    pass
+
+@app.route('/user/<string:username')
+def get_user(username):
+    pass
+
+@app.route('/user', methods=['POST'])
+def create_user():
+    pass

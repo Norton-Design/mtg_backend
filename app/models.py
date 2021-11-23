@@ -71,6 +71,13 @@ class Comment(db.Model):
     card = relationship('Card', back_populates='comments')
     author = relationship('User')
 
+class Watched_Cards(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    card_id = db.Column(db.Integer, db.ForeignKey('card.id'))
+    starting_price = db.Column(db.Float())
+    card = relationship('Card')
+    user = relationship('User', back_populates='watched_cards')
 
 @login.user_loader
 def load_user(id):
