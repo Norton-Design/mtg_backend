@@ -71,7 +71,7 @@ class Comment(db.Model):
     card = relationship('Card', back_populates='comments')
     author = relationship('User')
 
-class Watched_Cards(db.Model):
+class Watched_Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     card_id = db.Column(db.Integer, db.ForeignKey('card.id'))
@@ -79,7 +79,7 @@ class Watched_Cards(db.Model):
     card = relationship('Card')
     user = relationship('User', back_populates='watched_cards')
 
-class Owned_Cards(db.Model):
+class Owned_Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     card_id = db.Column(db.Integer, db.ForeignKey('card.id'))
@@ -87,14 +87,14 @@ class Owned_Cards(db.Model):
     card = relationship('Card')
     user = relationship('User', back_populates='owned_cards')
 
-class Combos(db.Model):
+class Combo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     description = db.Column(db.String(256))
     approved = db.Column(db.Boolean())
     user = relationship('User', back_populates='combos')
 
-class ComboPieces(db.Model):
+class ComboPiece(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     combo_id = db.Column(db.Integer, db.ForeignKey('combo.id'))
     combo = relationship('Combo', back_populates='combo_pieces')

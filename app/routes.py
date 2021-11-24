@@ -2,7 +2,7 @@ from flask_login.utils import login_required
 from werkzeug.utils import redirect
 from werkzeug.urls import url_parse
 from app import app, db
-from app.models import User
+from app.models import User, Card
 from flask import render_template, flash, redirect, url_for, request
 from app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -70,15 +70,16 @@ def user(username):
     return render_template('user.html', user=user, posts=sample_posts)
 
 
-@app.route('/card/<string:name>')
+@app.route('/card/<name>')
 def get_card(name):
+    card = Card.query.filter_by(name=name).first_or_404()
     pass
 
 @app.route('/card', methods=["POST"])
 def create_card():
     pass
 
-@app.route('/user/<string:username')
+@app.route('/user/<username>')
 def get_user(username):
     pass
 
