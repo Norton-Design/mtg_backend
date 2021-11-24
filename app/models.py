@@ -87,7 +87,17 @@ class Owned_Cards(db.Model):
     card = relationship('Card')
     user = relationship('User', back_populates='owned_cards')
 
+class Combos(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    description = db.Column(db.String(256))
+    approved = db.Column(db.Boolean())
+    user = relationship('User', back_populates='combos')
 
+class ComboPieces(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    combo_id = db.Column(db.Integer, db.ForeignKey('combo.id'))
+    combo = relationship('Combo', back_populates='combo_pieces')
 
 @login.user_loader
 def load_user(id):
